@@ -1,0 +1,11 @@
+--- a/junit-jupiter-params/src/main/java/module-info.java
++++ b/junit-jupiter-params/src/main/java/module-info.java
+@@ -22,6 +22,8 @@
+ 	requires transitive org.junit.jupiter.api;
+ 	requires transitive org.junit.platform.commons;
+ 
++	requires de.siegmar.fastcsv;
++
+ 	exports org.junit.jupiter.params;
+ 	exports org.junit.jupiter.params.aggregator;
+ 	exports org.junit.jupiter.params.converter;
