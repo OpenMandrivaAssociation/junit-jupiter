@@ -7,7 +7,10 @@ License:	EPL-2.0
 URL:		https://junit.org/junit5/
 Source0:	junit-framework-%{version}.tar.gz
 Source1:	junit-jupiter-gen-jre.py
+Source2:	junit-jupiter-filter-jmod-requires.sh
 Patch0:		junit-jupiter-6.0.3-system-fastcsv.patch
+# Drop unversioned jmod requires that the installed jars do not provide.
+%global __jmod_requires %{SOURCE2}
 
 BuildArch:	noarch
 BuildRequires:	java-current-devel
@@ -30,6 +33,16 @@ Requires:	mvn(org.opentest4j:opentest4j) = 1.3.0
 Requires:	mvn(org.junit.platform:junit-platform-commons) = %{version}
 Requires:	mvn(org.junit.platform:junit-platform-engine) = %{version}
 Requires:	mvn(de.siegmar:fastcsv) = 4.1.0
+# Versioned module names, matching the published jars.
+Requires:	jmod(org.junit.platform.commons@%{version})
+Requires:	jmod(org.junit.platform.engine@%{version})
+Requires:	jmod(org.opentest4j@1.3.0)
+# This package's own modules require each other. The generator's
+# provide is name@version, which does not satisfy the plain name.
+Provides:	jmod(org.junit.jupiter)
+Provides:	jmod(org.junit.jupiter.api)
+Provides:	jmod(org.junit.jupiter.engine)
+Provides:	jmod(org.junit.jupiter.params)
 
 %description
 JUnit Jupiter %{version} API, engine, and parameterized-test extension.
